@@ -3,6 +3,9 @@ project(rofloCraft VERSION 0.1.0)
 
 add_executable(rofloCraft
     src/main.cpp
+    utils/shader_utils.cpp
+    src/classes/bodies/realize/Cube.cpp
+    src/classes/camera/Camera.cpp
 )
 
 include(FetchContent)
