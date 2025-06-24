@@ -6,6 +6,8 @@ add_executable(rofloCraft
     utils/shader_utils.cpp
     src/classes/bodies/realize/Cube.cpp
     src/classes/camera/Camera.cpp
+    src/classes/entities/Player.cpp
+    src/classes/World.cpp
 )
 
 include(FetchContent)

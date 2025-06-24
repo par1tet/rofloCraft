@@ -10,6 +10,8 @@
 #include<classes/bodies/realize/Cube.hpp>
 #include <constants.h>
 #include<classes/camera/Camera.hpp>
+#include<classes/entities/Player.hpp>
+#include<classes/World.hpp>
 
 int main(){
     glfwInit();
@@ -42,12 +44,12 @@ int main(){
     glViewport(0,0, width, heigth);
 
     glEnable(GL_DEPTH_TEST);
-
-    Camera* camera = new Camera(glm::vec3{0.f, 0, +2.f}, window);
-
+    
     std::vector<Cube*> cubes = {
         new Cube(glm::vec3{0})
     };
+
+    World* world = new World(cubes, window);
 
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
@@ -61,15 +63,15 @@ int main(){
         projection = glm::perspective(glm::radians(45.0f), float(WIDTH) / HEIGHT, 0.1f, 1000.0f);
         GLuint projLoc = glGetUniformLocation(shaderProgram, "projM");
 
-        camera->update();
+        world->update(1/60);
         GLuint viewLoc = glGetUniformLocation(shaderProgram, "viewM");
 
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(camera->viewMatrix));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(world->player->camera->viewMatrix));
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
         for(int i = 0;i != cubes.size();i++){
             glm::mat4 model = glm::mat4(1);
-            model = glm::translate(model, cubes[i]->position);
+            model = glm::translate(model, world->cubes[i]->position);
 
             glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
