@@ -1,8 +1,8 @@
 #include<classes/World.hpp>
 
-World::World(std::vector<Cube*> cubes, GLFWwindow* window){
+World::World(std::vector<Cube*> cubes, Player* player, GLFWwindow* window){
     this->cubes = cubes;
-    this->player = new Player(glm::vec3(0,0,3.f), window);
+    this->player = player;
 
     glfwSetWindowUserPointer(window, this);
 }

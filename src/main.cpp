@@ -49,7 +49,7 @@ int main(){
         new Cube(glm::vec3{0})
     };
 
-    World* world = new World(cubes, window);
+    World* world = new World(cubes, new Player(glm::vec3(0,5,0.f), window), window);
 
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
@@ -60,10 +60,10 @@ int main(){
         GLuint modelLoc = glGetUniformLocation(shaderProgram, "modelM");
 
         glm::mat4 projection = glm::mat4(1);
-        projection = glm::perspective(glm::radians(45.0f), float(WIDTH) / HEIGHT, 0.1f, 1000.0f);
+        projection = glm::perspective(glm::radians(90.0f), float(WIDTH) / HEIGHT, 0.1f, 1000.0f);
         GLuint projLoc = glGetUniformLocation(shaderProgram, "projM");
 
-        world->update(1/60);
+        world->update(1.f/60);
         GLuint viewLoc = glGetUniformLocation(shaderProgram, "viewM");
 
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(world->player->camera->viewMatrix));

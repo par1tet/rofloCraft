@@ -1,8 +1,9 @@
 #include<classes/bodies/realize/Cube.hpp>
 #include<glad/glad.h>
 
-Cube::Cube(glm::vec3 position){
+Cube::Cube(glm::vec3 position, glm::vec3 size){
     this->position = position;
+    this->size = size;
 }
 
 void Cube::drawCube(GLuint shaderProgram){

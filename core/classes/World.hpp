@@ -9,7 +9,7 @@ public:
     Player* player;
     std::vector<Cube*> cubes;
 
-    World (std::vector<Cube*> cubes, GLFWwindow* window);
+    World (std::vector<Cube*> cubes, Player* player, GLFWwindow* window);
 
     void update(float dt);
 };

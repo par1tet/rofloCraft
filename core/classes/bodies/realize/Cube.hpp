@@ -5,9 +5,9 @@
 
 class Cube{
 public:
-    glm::vec3 position;
+    glm::vec3 position, size;
 
-    Cube(glm::vec3 position);
+    Cube(glm::vec3 position, glm::vec3 size = glm::vec3{1.f});
 
     void drawCube(GLuint);
 };
