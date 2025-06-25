@@ -46,11 +46,7 @@ int main(){
 
     glEnable(GL_DEPTH_TEST);
 
-    std::vector<Cube*> cubes = {
-        new Cube(glm::vec3{0})
-    };
-
-    Grid* grid = new Grid(cubes);
+    Grid* grid = new Grid("flat", {5, 5});
     
     World* world = new World({grid}, new Player(glm::vec3(0,5,0.f), window), window);
 
@@ -79,7 +75,7 @@ int main(){
 
                 glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-                cubes[i]->drawCube(shaderProgram);
+                world->grids[i]->cubes[k]->drawCube(shaderProgram);
             }
         }
 
