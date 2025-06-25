@@ -1,7 +1,7 @@
 #include<classes/entities/Player.hpp>
 #include<GLFW/glfw3.h>
 #include<iostream>
-#include<classes/World.hpp>
+#include<classes/world/World.hpp>
 
 Player::Player(glm::vec3 position, GLFWwindow* window, glm::vec3 size){
     this->position = position;
@@ -61,17 +61,19 @@ void Player::moveHandler(int key, int action){
 
 void Player::checkCollision(){
     World* world = static_cast<World*>(glfwGetWindowUserPointer(this->window));
-    std::vector<Cube*>* cubes = &(world->cubes);
+    std::vector<Grid*>* grids = &(world->grids);
         
     if (world){
-        collisionInfo cI = this->detectCollision(*cubes);
+        for(int i = 0;i != grids->size();i++){
+            collisionInfo cI = this->detectCollision((*grids)[i]->cubes);
 
-        if(cI.index != -1){
-            this->separateCollision(*cubes, cI);
-            this->impulseResolveCollision(*cubes, cI);
-            std::cout << "collision" << std::endl;
+            if(cI.index != -1){
+                this->separateCollision((*grids)[i]->cubes, cI);
+                this->impulseResolveCollision((*grids)[i]->cubes, cI);
+                std::cout << "collision" << std::endl;
 
-            cI = this->detectCollision(*cubes);
+                cI = this->detectCollision((*grids)[i]->cubes);
+            }
         }
     }
 }

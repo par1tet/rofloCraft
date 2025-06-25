@@ -1,6 +1,6 @@
 #include <classes/camera/Camera.hpp>
 #include <iostream>
-#include <classes/World.hpp>
+#include <classes/world/World.hpp>
 #include <glad/glad.h>
 
 Camera::Camera(glm::vec3 position, GLFWwindow* window){

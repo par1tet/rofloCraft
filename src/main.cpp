@@ -11,7 +11,8 @@
 #include <constants.h>
 #include<classes/camera/Camera.hpp>
 #include<classes/entities/Player.hpp>
-#include<classes/World.hpp>
+#include<classes/world/World.hpp>
+#include<classes/world/Grid.hpp>
 
 int main(){
     glfwInit();
@@ -44,12 +45,14 @@ int main(){
     glViewport(0,0, width, heigth);
 
     glEnable(GL_DEPTH_TEST);
-    
+
     std::vector<Cube*> cubes = {
         new Cube(glm::vec3{0})
     };
 
-    World* world = new World(cubes, new Player(glm::vec3(0,5,0.f), window), window);
+    Grid* grid = new Grid(cubes);
+    
+    World* world = new World({grid}, new Player(glm::vec3(0,5,0.f), window), window);
 
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
@@ -69,13 +72,15 @@ int main(){
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(world->player->camera->viewMatrix));
         glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-        for(int i = 0;i != cubes.size();i++){
-            glm::mat4 model = glm::mat4(1);
-            model = glm::translate(model, world->cubes[i]->position);
+        for(int i = 0;i != world->grids.size();i++){
+            for(int k = 0;k != world->grids[i]->cubes.size();k++){
+                glm::mat4 model = glm::mat4(1);
+                model = glm::translate(model, world->grids[i]->cubes[k]->position);
 
-            glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+                glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-            cubes[i]->drawCube(shaderProgram);
+                cubes[i]->drawCube(shaderProgram);
+            }
         }
 
         glfwSwapBuffers(window);

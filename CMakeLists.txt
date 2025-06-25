@@ -7,7 +7,8 @@ add_executable(rofloCraft
     src/classes/bodies/realize/Cube.cpp
     src/classes/camera/Camera.cpp
     src/classes/entities/Player.cpp
-    src/classes/World.cpp
+    src/classes/world/World.cpp
+    src/classes/world/Grid.cpp
 )
 
 include(FetchContent)

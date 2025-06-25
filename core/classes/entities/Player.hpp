@@ -20,7 +20,7 @@ public:
     bool keys[255]{false};
     GLFWwindow* window;
 
-    Player(glm::vec3 position, GLFWwindow*, glm::vec3 size = {1.f, 2.f, 1.f});
+    Player(glm::vec3 position, GLFWwindow*, glm::vec3 size = {10.f, 2.f, 10.f});
 
     void moveHandler(int key, int action);
     static void keyCallbackDispatcher(GLFWwindow* window, int key, int scancode, int action, int mods);
